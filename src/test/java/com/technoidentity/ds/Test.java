@@ -1,4 +1,3 @@
 package com.technoidentity.ds;
 
-public class Test {
-}
+public class Test {}
