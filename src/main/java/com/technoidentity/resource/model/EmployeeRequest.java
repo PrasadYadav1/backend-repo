@@ -21,4 +21,8 @@ public class EmployeeRequest {
   private int salary;
 
   private int billing;
+
+  private String userName;
+
+  private String password;
 }
