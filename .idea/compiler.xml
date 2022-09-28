@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ti-resource-x" target="8" />
+      <module name="ti-resource-x" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
