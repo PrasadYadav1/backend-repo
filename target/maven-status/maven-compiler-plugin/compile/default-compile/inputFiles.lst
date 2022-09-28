@@ -9,6 +9,7 @@
 /home/inturi/projects/java/spring-boot/ti-resource-x/src/main/java/com/technoidentity/util/CommonResponse.java
 /home/inturi/projects/java/spring-boot/ti-resource-x/src/main/java/com/technoidentity/entity/User.java
 /home/inturi/projects/java/spring-boot/ti-resource-x/src/main/java/com/technoidentity/entity/Role.java
+/home/inturi/projects/java/spring-boot/ti-resource-x/src/main/java/com/technoidentity/dto/UserResponse.java
 /home/inturi/projects/java/spring-boot/ti-resource-x/src/main/java/com/technoidentity/security/oauth2/OAuth2AuthenticationFailureHandler.java
 /home/inturi/projects/java/spring-boot/ti-resource-x/src/main/java/com/technoidentity/util/DateFormats.java
 /home/inturi/projects/java/spring-boot/ti-resource-x/src/main/java/com/technoidentity/util/Page.java

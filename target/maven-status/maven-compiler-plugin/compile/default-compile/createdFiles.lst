@@ -4,6 +4,7 @@ com/technoidentity/enums/Gender.class
 com/technoidentity/config/SecurityConfig.class
 com/technoidentity/entity/SharedModel.class
 com/technoidentity/exception/ResourceNotFoundException.class
+com/technoidentity/dto/UserResponse.class
 com/technoidentity/service/UserServiceImpl.class
 com/technoidentity/config/SwaggerConfig.class
 com/technoidentity/security/oauth2/CustomOAuth2UserService.class

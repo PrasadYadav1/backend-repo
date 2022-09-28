@@ -20,7 +20,7 @@ public class SwaggerConfig {
                 "Technoidentity of API.",
                 "1.0",
                 "Terms of service",
-                new Contact("1PD", "www.technoidentity.com", "admin@technoidentity.com"),
+                new Contact("TECHNOIDENTITY", "www.technoidentity.com", "admin@technoidentity.com"),
                 "License of API",
                 "API license URL",
                 Collections.emptyList());
