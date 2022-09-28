@@ -2,27 +2,29 @@ package com.technoidentity.service;
 
 import com.technoidentity.dto.SignUp;
 import com.technoidentity.dto.UserDto;
+import com.technoidentity.dto.UserRequest;
 import com.technoidentity.entity.User;
 import com.technoidentity.util.Pagination;
+import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.List;
-
 public interface UserService {
 
-    User add(SignUp signUp);
-    UserDetails loadUserByUsername(String email) throws UsernameNotFoundException;
+  User add(SignUp signUp);
 
-    UserDetails loadUserById(String id);
+  UserDetails loadUserByUsername(String email) throws UsernameNotFoundException;
 
-    Boolean existsByEmail(String email);
+  UserDetails loadUserById(String id);
 
-    UserDto getById(Long id);
+  Boolean existsByEmail(String email);
 
-    List<UserDto> findByEmailContainingIgnoreCase(String email);
+  UserDto getById(Long id);
 
-    Pagination findByEmailContaining(Integer status, String email, Pageable pageable);
+  List<UserDto> findByEmailContainingIgnoreCase(String email);
 
+  Pagination findByEmailContaining(Integer status, String email, Pageable pageable);
+
+  User updateById(Long id, UserRequest userRequest);
 }

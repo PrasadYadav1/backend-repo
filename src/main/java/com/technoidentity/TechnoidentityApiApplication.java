@@ -23,6 +23,7 @@ public class TechnoidentityApiApplication extends SpringBootServletInitializer {
   public Mapper mapper() {
     return new DozerBeanMapper();
   }
+
   public static void main(String[] args) {
     SpringApplication.run(TechnoidentityApiApplication.class, args);
   }

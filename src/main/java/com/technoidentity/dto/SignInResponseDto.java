@@ -6,8 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class SignInResponseDto {
-    private String token;
-    private String tokenType = "Bearer";
-    private  UserDto user;
-
+  private String token;
+  private String tokenType = "Bearer";
+  private UserDto user;
 }

@@ -1,7 +1,5 @@
 package com.technoidentity.dto;
 
-
-
 import com.technoidentity.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,28 +9,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
-    private Long id;
+  private Long id;
 
-    private Long roleId;
+  private Long roleId;
 
-    private String roleName;
+  private String roleName;
 
-    private String firstName;
+  private String firstName;
 
-    private String middleName;
+  private String middleName;
 
-    private String lastName;
+  private String lastName;
 
-    private String email;
+  private String email;
 
-    private String profileImage;
+  private String profileImage;
 
-    private Gender gender;
+  private Gender gender;
 
-    private String primaryMobile;
+  private String primaryMobile;
 
-    private String designation;
-
-
-   }
-
+  private String designation;
+}

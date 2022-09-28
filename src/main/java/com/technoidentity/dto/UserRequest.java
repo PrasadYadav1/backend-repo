@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class SignUp {
+public class UserRequest {
 
   @NotNull(message = "roleId is mandatory")
   private Long roleId;
@@ -24,18 +24,10 @@ public class SignUp {
   @NotBlank(message = "email is mandatory")
   private String email;
 
-  @NotBlank(message = "password is mandatory")
-  private String password;
-
-  @NotBlank(message = "confirm password is mandatory")
-  private String confirmPassword;
-
   @NotBlank(message = "primaryMobile is mandatory")
   private String primaryMobile;
 
   private String alternativeMobile;
-
-  private String profileImage;
 
   private String designation;
 }
