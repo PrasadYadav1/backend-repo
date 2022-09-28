@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import lombok.Data;
 
 @Data
-public class EmployeeRequest {
+public class EmployeeResponse {
+
+  private int id;
 
   private String name;
 

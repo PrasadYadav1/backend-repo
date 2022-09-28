@@ -35,12 +35,6 @@ public class Employee {
   @Column(name = "billing")
   private int billing;
 
-  @Column(name = "username")
-  private String userName;
-
-  @Column(name = "password")
-  private String password;
-
   public Long getId() {
     return id;
   }
@@ -111,21 +105,5 @@ public class Employee {
 
   public void setBilling(int billing) {
     this.billing = billing;
-  }
-
-  public String getUserName() {
-    return userName;
-  }
-
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
   }
 }

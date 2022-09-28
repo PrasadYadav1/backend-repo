@@ -1,12 +1,11 @@
 package com.technoidentity.resource.controller;
 
 import com.technoidentity.resource.model.Employee;
+import com.technoidentity.resource.model.EmployeeRequest;
+import com.technoidentity.resource.model.EmployeeResponse;
 import com.technoidentity.resource.service.EmployeeService;
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/employee")
@@ -23,5 +22,10 @@ public class EmployeeController {
   public List<Employee> findEmployees() {
 
     return employeeService.findEmployees();
+  }
+
+  @PostMapping("/create")
+  public EmployeeResponse createEmployee(@RequestBody EmployeeRequest employee) {
+    return employeeService.saveEmployee(employee);
   }
 }
