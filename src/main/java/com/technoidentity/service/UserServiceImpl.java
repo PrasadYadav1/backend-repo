@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
         try {
             User user = userRepository.getOne(id);
             UserDto userDto = mapper.map(user, UserDto.class);
-              //userDto.setRoleName(user.getRole().getName());
+              userDto.setRoleName(user.getRole().getName());
             return userDto;
         } catch (Exception e) {
             e.printStackTrace();
