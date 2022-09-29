@@ -30,10 +30,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-  @Autowired Mapper mapper;
+  @Autowired final Mapper mapper;
   @Autowired private final UserRepository userRepository;
 
-  @Autowired private PasswordEncoder passwordEncoder;
+  @Autowired private final PasswordEncoder passwordEncoder;
 
   StringPredicate isNullOrEmpty = (str) -> str == null || str.trim().isEmpty();
 
@@ -147,17 +147,22 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User updateById(Long id, UserRequest userRequest) {
-    User user = userRepository.getOne(id);
-
-    user.setFirstName(userRequest.getFirstName());
-    user.setMiddleName(userRequest.getMiddleName());
-    user.setLastName(userRequest.getLastName());
-    user.setDesignation(userRequest.getDesignation());
-    user.setGender(userRequest.getGender());
-    user.setPrimaryMobile(userRequest.getPrimaryMobile());
-    user.setRoleId(userRequest.getRoleId());
-    user.setAlternativeMobile(userRequest.getAlternativeMobile());
-    return userRepository.save(user);
+    User user;
+    try {
+      user = userRepository.getOne(id);
+      user.setFirstName(userRequest.getFirstName());
+      user.setMiddleName(userRequest.getMiddleName());
+      user.setLastName(userRequest.getLastName());
+      user.setDesignation(userRequest.getDesignation());
+      user.setGender(userRequest.getGender());
+      user.setPrimaryMobile(userRequest.getPrimaryMobile());
+      user.setRoleId(userRequest.getRoleId());
+      user.setAlternativeMobile(userRequest.getAlternativeMobile());
+      return userRepository.save(user);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
   }
 
   private Page<User> searchUser(String search, Integer status, Pageable pageable) {

@@ -65,14 +65,16 @@ public class UserController {
   @PutMapping("/{id}")
   public ResponseEntity<?> updateById(
       @PathVariable(value = "id") Long id, @RequestBody UserRequest userRequest) {
-    UserDto data = userService.getById(id);
+
+    User data = userService.updateById(id, userRequest);
+
     if (data == null) {
-      throw new ResourceNotFoundException("User", "id", id);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found for id " + id);
     }
-    User result = userService.updateById(id, userRequest);
+
     return new ResponseEntity(
         new CommonResponse(
-            result.getId(),
+            data.getId(),
             sm.format(new Date()),
             HttpServletResponse.SC_OK,
             "",
