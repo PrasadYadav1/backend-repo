@@ -39,7 +39,7 @@ public class UserServiceTest {
 
   @Before
   public void setup() {
-    service = new UserServiceImpl(mapper, userRepository, passwordEncoder);
+    service = new UserService(mapper, userRepository, passwordEncoder);
   }
 
   @Test
