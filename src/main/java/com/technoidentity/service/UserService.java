@@ -152,6 +152,7 @@ public class UserService {
       user.setPrimaryMobile(userRequest.getPrimaryMobile());
       user.setRoleId(userRequest.getRoleId());
       user.setAlternativeMobile(userRequest.getAlternativeMobile());
+      user.setProfileImage(userRequest.getProfileImage());
       return userRepository.save(user);
     } catch (Exception e) {
       e.printStackTrace();

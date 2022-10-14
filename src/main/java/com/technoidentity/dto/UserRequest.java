@@ -27,6 +27,8 @@ public class UserRequest {
   @NotBlank(message = "primaryMobile is mandatory")
   private String primaryMobile;
 
+  private String profileImage;
+
   private String alternativeMobile;
 
   private String designation;

@@ -152,6 +152,7 @@ public class UserControllerTest {
     user.setRoleId(2L);
     user.setPrimaryMobile("12345");
     user.setEmail("xyz@gmail.com");
+    user.setProfileImage("abc.jpeg");
 
     // given
     when(userService.updateById(any(), any(UserRequest.class))).thenReturn(user);
