@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
-@SpringBootApplication(scanBasePackages = {"com.technoidentity.controller"})
+@SpringBootApplication
 @EnableConfigurationProperties(AppProperties.class)
 public class TechnoidentityApiApplication extends SpringBootServletInitializer {
 
