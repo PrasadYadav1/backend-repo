@@ -69,4 +69,37 @@ public class CashFlowService {
 
     return cashFlowRepository.save(cashFlow);
   }
+
+  public CashFlowDto getCashFlowById(Long id) {
+    try {
+      CashFlow cashFlow = cashFlowRepository.getOne(id);
+      return mapper.map(cashFlow, CashFlowDto.class);
+    } catch (Exception e) {
+      log.error("Could not find cash-flow error is {} ", e.getMessage());
+      return null;
+    }
+  }
+
+  public CashFlow updateCashFlowById(Long id, CashFlowRequest cashFlowRequest) {
+    CashFlow cashFlow;
+    TransactionType transactionType =
+        cashFlowRequest.getCategory() == Category.Expense
+            ? TransactionType.Debit
+            : TransactionType.Credit;
+    try {
+      cashFlow = cashFlowRepository.getOne(id);
+      cashFlow.setDate(cashFlowRequest.getDate());
+      cashFlow.setBalance(cashFlowRequest.getBalance());
+      cashFlow.setBankId(cashFlowRequest.getBankId());
+      cashFlow.setInFlow(cashFlowRequest.getInFlow());
+      cashFlow.setOutFlow(cashFlowRequest.getOutFlow());
+      cashFlow.setCategory(cashFlowRequest.getCategory());
+      cashFlow.setCapital(cashFlowRequest.getCapital());
+      cashFlow.setTransactionType(transactionType);
+      return cashFlowRepository.save(cashFlow);
+    } catch (Exception e) {
+      log.error("unable to update cash-flow error is {} ", e.getMessage());
+      return null;
+    }
+  }
 }

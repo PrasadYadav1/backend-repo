@@ -1,5 +1,6 @@
 package com.technoidentity.controller;
 
+import com.technoidentity.dto.CashFlowDto;
 import com.technoidentity.dto.CashFlowRequest;
 import com.technoidentity.entity.CashFlow;
 import com.technoidentity.service.CashFlowService;
@@ -49,7 +50,7 @@ public class CashFlowController {
     CashFlow cashFlow;
     String message = "";
     try {
-      //will update this code once security is enabled for this controller
+      // will update this code once security is enabled for this controller
       //  UserPrincipal userDetails =
       //        (UserPrincipal)
       // SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -68,6 +69,39 @@ public class CashFlowController {
             "",
             "cash-flow added successfully",
             "/api/cash-flow/create"),
+        new HttpHeaders(),
+        HttpStatus.OK);
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<?> getById(@PathVariable("id") Long id) {
+
+    CashFlowDto data = cashFlowService.getCashFlowById(id);
+    if (data == null) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("cash-flow not found for id " + id);
+    }
+
+    return new ResponseEntity<>(data, new HttpHeaders(), HttpStatus.OK);
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<?> updateCashFlow(
+      @PathVariable("id") Long id, @Valid @RequestBody CashFlowRequest cashFlowRequest) {
+    CashFlow data = cashFlowService.updateCashFlowById(id, cashFlowRequest);
+
+    if (data == null) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .body("Cash-flow not found for given id " + id);
+    }
+
+    return new ResponseEntity(
+        new CommonResponse(
+            data.getId(),
+            sm.format(new Date()),
+            HttpServletResponse.SC_OK,
+            "",
+            "cash-flow updated successfully",
+            "/api/cash-flow"),
         new HttpHeaders(),
         HttpStatus.OK);
   }

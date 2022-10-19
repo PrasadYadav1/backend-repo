@@ -85,11 +85,10 @@ public class UserService {
   public UserDto getById(Long id) {
     try {
       User user = userRepository.getOne(id);
-      UserDto userDto = mapper.map(user, UserDto.class);
-      // userDto.setRoleName(user.getRole().getName());
-      return userDto;
+      return mapper.map(user, UserDto.class);
+
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("Could not find user error is {} ", e.getMessage());
       return null;
     }
   }
@@ -155,7 +154,7 @@ public class UserService {
       user.setProfileImage(userRequest.getProfileImage());
       return userRepository.save(user);
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("unable to update user error is {} ", e.getMessage());
       return null;
     }
   }
