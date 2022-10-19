@@ -1,8 +1,21 @@
 package com.technoidentity.entity;
 
+import com.technoidentity.enums.Category;
+import com.technoidentity.enums.TransactionType;
 import java.io.Serializable;
-import java.time.LocalDate;
-import javax.persistence.*;
+import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.CascadeType;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,27 +31,34 @@ public class CashFlow extends SharedModel implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Temporal(TemporalType.DATE)
   @Column(name = "date")
-  private LocalDate date;
+  private Date date;
 
-  @Column(name = "bank_details")
-  private String bankDetails;
+  @Column(name = "bank_id")
+  private Long bankId;
 
-  @Column(name = "transaction_category")
-  private String transactionCategory;
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "bank_id", nullable = false, insertable = false, updatable = false)
+  private Bank bank;
 
-  @Column(name = "capital_started")
-  private String capitalStarted;
+  @Column(name = "category")
+  @NotNull
+  private Category category;
 
-  @Column(name = "in_flow")
-  private String inFlow;
+  @Column(name = "capital")
+  private double capital;
 
-  @Column(name = "out_flow")
-  private String outFlow;
+  @Column(name = "inflow")
+  private double inFlow;
+
+  @Column(name = "outflow")
+  private double outFlow;
 
   @Column(name = "balance")
-  private String balance;
+  private double balance;
 
-  @Column(name = "week")
-  private String week;
+  @Column(name = "transaction_type")
+  @NotNull
+  private TransactionType transactionType;
 }

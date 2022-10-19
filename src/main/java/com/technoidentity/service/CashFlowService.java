@@ -1,9 +1,13 @@
 package com.technoidentity.service;
 
 import com.technoidentity.dto.CashFlowDto;
+import com.technoidentity.dto.CashFlowRequest;
 import com.technoidentity.entity.CashFlow;
+import com.technoidentity.enums.Category;
+import com.technoidentity.enums.TransactionType;
 import com.technoidentity.repository.CashFlowRepository;
 import com.technoidentity.util.Pagination;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +32,41 @@ public class CashFlowService {
 
     Long total = cashFlow.getTotalElements();
     List<CashFlowDto> cashFlowDtoList =
-        cashFlow.stream().map(c -> mapper.map(c, CashFlowDto.class)).collect(Collectors.toList());
+        cashFlow
+            .stream()
+            .map(
+                c -> {
+                  CashFlowDto cashFlowDto = mapper.map(c, CashFlowDto.class);
+                  return cashFlowDto;
+                })
+            .collect(Collectors.toList());
 
     return new Pagination(cashFlowDtoList, total.intValue());
+  }
+
+  public CashFlow addCashFlow(CashFlowRequest cashFlowRequest, Long userId) {
+
+    CashFlow cashFlow = new CashFlow();
+
+    TransactionType transactionType =
+        cashFlowRequest.getCategory() == Category.Expense
+            ? TransactionType.Debit
+            : TransactionType.Credit;
+
+    cashFlow.setBankId(cashFlowRequest.getBankId());
+    cashFlow.setBalance(cashFlowRequest.getBalance());
+    cashFlow.setCapital(cashFlowRequest.getCapital());
+    cashFlow.setInFlow(cashFlowRequest.getInFlow());
+    cashFlow.setOutFlow(cashFlowRequest.getOutFlow());
+    cashFlow.setCategory(cashFlowRequest.getCategory());
+    cashFlow.setTransactionType(transactionType);
+    cashFlow.setDate(cashFlowRequest.getDate());
+    cashFlow.setCreatedBy(userId);
+    cashFlow.setCreatedAt(new Date());
+    cashFlow.setUpdatedBy(userId);
+    cashFlow.setUpdatedAt(new Date());
+    cashFlow.setStatus(1);
+
+    return cashFlowRepository.save(cashFlow);
   }
 }
