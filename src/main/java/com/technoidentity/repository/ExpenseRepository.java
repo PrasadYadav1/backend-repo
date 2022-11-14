@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-@Transactional(readOnly = false)
+@Transactional
 public interface ExpenseRepository extends JpaRepository<Expense, String> {
 
   @Query("SELECT amount from Expense where transaction_date = :transactionDate")

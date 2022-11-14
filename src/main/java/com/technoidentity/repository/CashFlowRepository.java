@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-@Transactional(readOnly = false)
+@Transactional
 public interface CashFlowRepository extends JpaRepository<CashFlow, String> {
 
   CashFlow findByDate(String date);

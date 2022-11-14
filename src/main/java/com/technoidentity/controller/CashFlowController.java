@@ -74,34 +74,6 @@ public class CashFlowController {
 
     return new ResponseEntity<>(data, new HttpHeaders(), HttpStatus.OK);
   }
-  /*
-  @PostMapping("/create")
-  public ResponseEntity<?> addCashFlow(@Valid @RequestBody CashFlowRequest cashFlowRequest) {
-    CashFlow cashFlow;
-    String message = "";
-    try {
-      // will update this code once security is enabled for this controller
-      //  UserPrincipal userDetails =
-      //        (UserPrincipal)
-      // SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-      cashFlow = cashFlowService.addCashFlow(cashFlowRequest, 1L);
-    } catch (Exception e) {
-      message = "Could not create cash-flow " + e.getMessage() + "!";
-      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
-          .body(new ResponseMessage(message));
-    }
-    return new ResponseEntity(
-        new CommonResponse(
-            cashFlow.getCapitalId(),
-            sm.format(new Date()),
-            HttpServletResponse.SC_OK,
-            "",
-            "cash-flow created successfully",
-            "/api/cash-flow/create"),
-        new HttpHeaders(),
-        HttpStatus.OK);
-  }*/
 
   @GetMapping("/{id}")
   public ResponseEntity<?> getById(@PathVariable("id") String id) {
