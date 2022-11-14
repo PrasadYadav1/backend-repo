@@ -1,8 +1,9 @@
 package com.technoidentity.controller;
 
 import com.technoidentity.dto.CashFlowDto;
-import com.technoidentity.dto.CashFlowRequest;
 import com.technoidentity.entity.CashFlow;
+import com.technoidentity.request.CashFlowRequest;
+import com.technoidentity.request.FirstCashFlowRequest;
 import com.technoidentity.service.CashFlowService;
 import com.technoidentity.util.CommonResponse;
 import com.technoidentity.util.DateFormats;
@@ -31,11 +32,40 @@ public class CashFlowController {
   @Autowired private CashFlowService cashFlowService;
   SimpleDateFormat sm = new DateFormats().DATE_TIME_FORMAT;
 
+  @PostMapping("/first-create")
+  public ResponseEntity<?> addFirstCashFlow(
+      @Valid @RequestBody FirstCashFlowRequest cashFlowRequest) {
+    CashFlow data;
+    String message;
+    try {
+      data = cashFlowService.addFirstCashflow(cashFlowRequest);
+      if (data != null) {
+        return new ResponseEntity(
+            new CommonResponse(
+                data.getCapitalId(),
+                sm.format(new Date()),
+                HttpServletResponse.SC_OK,
+                "",
+                "first cash-flow created successfully",
+                "/api/first-cash-flow/create"),
+            new HttpHeaders(),
+            HttpStatus.OK);
+      } else {
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
+            .body("cash-flow already exists");
+      }
+    } catch (Exception e) {
+      message = "Could not create cash-flow " + e.getMessage() + "!";
+      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
+          .body(new ResponseMessage(message));
+    }
+  }
+
   @GetMapping("/all")
   public ResponseEntity<Pagination> showAllCashFlows(
       @RequestParam(value = "pageIndex", defaultValue = "0") int pageIndex,
       @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
-      @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
+      @RequestParam(value = "sortBy", defaultValue = "capitalId") String sortBy,
       @RequestParam(value = "sortOrder", defaultValue = "DESC") String sortOrder) {
     Sort sortOrderData =
         sortOrder.equals("ASC") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
@@ -44,7 +74,7 @@ public class CashFlowController {
 
     return new ResponseEntity<>(data, new HttpHeaders(), HttpStatus.OK);
   }
-
+  /*
   @PostMapping("/create")
   public ResponseEntity<?> addCashFlow(@Valid @RequestBody CashFlowRequest cashFlowRequest) {
     CashFlow cashFlow;
@@ -57,24 +87,24 @@ public class CashFlowController {
 
       cashFlow = cashFlowService.addCashFlow(cashFlowRequest, 1L);
     } catch (Exception e) {
-      message = "Could not create cash-flow: " + e + "!";
+      message = "Could not create cash-flow " + e.getMessage() + "!";
       return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
           .body(new ResponseMessage(message));
     }
     return new ResponseEntity(
         new CommonResponse(
-            cashFlow.getId(),
+            cashFlow.getCapitalId(),
             sm.format(new Date()),
             HttpServletResponse.SC_OK,
             "",
-            "cash-flow added successfully",
+            "cash-flow created successfully",
             "/api/cash-flow/create"),
         new HttpHeaders(),
         HttpStatus.OK);
-  }
+  }*/
 
   @GetMapping("/{id}")
-  public ResponseEntity<?> getById(@PathVariable("id") Long id) {
+  public ResponseEntity<?> getById(@PathVariable("id") String id) {
 
     CashFlowDto data = cashFlowService.getCashFlowById(id);
     if (data == null) {
@@ -86,7 +116,7 @@ public class CashFlowController {
 
   @PutMapping("/{id}")
   public ResponseEntity<?> updateCashFlow(
-      @PathVariable("id") Long id, @Valid @RequestBody CashFlowRequest cashFlowRequest) {
+      @PathVariable("id") String id, @Valid @RequestBody CashFlowRequest cashFlowRequest) {
     CashFlow data = cashFlowService.updateCashFlowById(id, cashFlowRequest);
 
     if (data == null) {
@@ -96,7 +126,7 @@ public class CashFlowController {
 
     return new ResponseEntity(
         new CommonResponse(
-            data.getId(),
+            data.getCapitalId(),
             sm.format(new Date()),
             HttpServletResponse.SC_OK,
             "",
@@ -104,5 +134,16 @@ public class CashFlowController {
             "/api/cash-flow"),
         new HttpHeaders(),
         HttpStatus.OK);
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<?> deleteCashFlow(@PathVariable("id") String id) {
+    try {
+      cashFlowService.deleteCashFlowById(id);
+      return new ResponseEntity<>(
+          "Cash-flow deleted successfully for id: " + id, new HttpHeaders(), HttpStatus.OK);
+    } catch (Exception e) {
+      throw new RuntimeException("Error: " + e.getMessage());
+    }
   }
 }

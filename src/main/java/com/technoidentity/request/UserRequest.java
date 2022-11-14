@@ -1,4 +1,4 @@
-package com.technoidentity.dto;
+package com.technoidentity.request;
 
 import com.technoidentity.enums.Gender;
 import javax.validation.constraints.NotBlank;

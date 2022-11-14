@@ -1,8 +1,5 @@
 package com.technoidentity.dto;
 
-import com.technoidentity.enums.Category;
-import com.technoidentity.enums.TransactionType;
-import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,21 +9,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CashFlowDto {
 
-  private Long id;
+  private String capitalId;
 
-  private Date date;
+  private String date;
 
-  private String bankId;
+  private int week;
 
-  private Category category;
+  private int year;
 
-  private TransactionType transactionType;
-
-  private String capital;
+  private double capital;
 
   private double inFlow;
 
   private double outFlow;
 
   private double balance;
+
+  private double funding;
+
+  private double loan;
 }

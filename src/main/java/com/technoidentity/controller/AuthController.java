@@ -71,7 +71,7 @@ public class AuthController {
     User user = userService.add(signUp);
     return new ResponseEntity(
         new CommonResponse(
-            user.getId(),
+            user.getId().toString(),
             sm.format(new Date()),
             HttpServletResponse.SC_OK,
             "",

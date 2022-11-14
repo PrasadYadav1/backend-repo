@@ -1,9 +1,9 @@
 package com.technoidentity.controller;
 
 import com.technoidentity.dto.UserDto;
-import com.technoidentity.dto.UserRequest;
 import com.technoidentity.entity.User;
 import com.technoidentity.exception.ResourceNotFoundException;
+import com.technoidentity.request.UserRequest;
 import com.technoidentity.service.UserService;
 import com.technoidentity.util.CommonResponse;
 import com.technoidentity.util.DateFormats;
@@ -74,7 +74,7 @@ public class UserController {
 
     return new ResponseEntity(
         new CommonResponse(
-            data.getId(),
+            data.getId().toString(),
             sm.format(new Date()),
             HttpServletResponse.SC_OK,
             "",

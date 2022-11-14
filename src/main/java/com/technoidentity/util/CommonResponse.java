@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommonResponse {
-  private Long id;
+  private String id;
   private String timestamp;
   private Integer status;
   private String error;

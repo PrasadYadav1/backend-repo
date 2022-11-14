@@ -1,4 +1,4 @@
-package com.technoidentity.dto;
+package com.technoidentity.response;
 
 import com.technoidentity.enums.Gender;
 import lombok.AllArgsConstructor;

@@ -11,12 +11,12 @@ import static org.mockito.Mockito.when;
 
 import com.technoidentity.dto.SignUp;
 import com.technoidentity.dto.UserDto;
-import com.technoidentity.dto.UserRequest;
 import com.technoidentity.entity.User;
 import com.technoidentity.enums.AuthProvider;
 import com.technoidentity.enums.Gender;
 import com.technoidentity.exception.ResourceNotFoundException;
 import com.technoidentity.repository.UserRepository;
+import com.technoidentity.request.UserRequest;
 import java.util.Date;
 import org.dozer.Mapper;
 import org.junit.Before;
@@ -39,7 +39,7 @@ public class UserServiceTest {
 
   @Before
   public void setup() {
-    service = new UserService(mapper, userRepository, passwordEncoder);
+    service = new UserServiceImpl(mapper, userRepository, passwordEncoder);
   }
 
   @Test

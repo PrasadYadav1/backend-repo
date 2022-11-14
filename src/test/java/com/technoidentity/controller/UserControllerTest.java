@@ -6,17 +6,18 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.technoidentity.dto.UserDto;
-import com.technoidentity.dto.UserRequest;
 import com.technoidentity.entity.User;
 import com.technoidentity.enums.Gender;
 import com.technoidentity.exception.ResourceNotFoundException;
+import com.technoidentity.request.UserRequest;
 import com.technoidentity.security.CustomUserDetailsService;
 import com.technoidentity.security.TokenAuthenticationFilter;
 import com.technoidentity.security.oauth2.CustomOAuth2UserService;
@@ -66,12 +67,7 @@ public class UserControllerTest {
   @Test
   public void getAllUsersTest() throws Exception {
 
-    UserDto userDto = new UserDto();
-    userDto.setFirstName("AAA");
-    userDto.setLastName("BBB");
-    userDto.setEmail("abc@gmail.com");
-    userDto.setDesignation("Developer");
-    userDto.setGender(Gender.Male);
+    UserDto userDto = getUserDto();
     Pagination page = new Pagination(Collections.singletonList(userDto), 1);
 
     // given
@@ -96,12 +92,7 @@ public class UserControllerTest {
   @Test
   public void updateUserTest() throws Exception {
 
-    UserDto userDto = new UserDto();
-    userDto.setFirstName("AAA");
-    userDto.setLastName("BBB");
-    userDto.setEmail("abc@gmail.com");
-    userDto.setDesignation("Developer");
-    userDto.setGender(Gender.Male);
+    UserDto userDto = getUserDto();
 
     // given
     when(userService.getById(anyLong())).thenReturn(userDto);
@@ -141,6 +132,18 @@ public class UserControllerTest {
   }
 
   @Test
+  public void getUserShouldReturnRecordWhenIdIsFound() throws Exception {
+
+    UserDto user = getUserDto();
+
+    // given
+    when(userService.getById(anyLong())).thenReturn(user);
+
+    // when & then
+    this.mockMvc.perform(get(USER_API + "/1")).andDo(print()).andExpect(status().isOk());
+  }
+
+  @Test
   public void updateUserWhenIdFoundTest() throws Exception {
     UserRequest request = new UserRequest();
     request.setEmail("xyz@gmail.com");
@@ -167,7 +170,7 @@ public class UserControllerTest {
             .andDo(print())
             .andExpect(status().isOk());
 
-    result.andExpect(jsonPath("$.id", is(3)));
+    result.andExpect(jsonPath("$.id", is("3")));
     result.andExpect(jsonPath("$.message", is("user updated successfully")));
     result.andExpect(jsonPath("$.path", is("/api/user")));
   }
@@ -199,12 +202,7 @@ public class UserControllerTest {
   @Test
   public void findByEmailTest() throws Exception {
 
-    UserDto userDto = new UserDto();
-    userDto.setFirstName("AAA");
-    userDto.setLastName("BBB");
-    userDto.setEmail("abc@gmail.com");
-    userDto.setDesignation("Developer");
-    userDto.setGender(Gender.Male);
+    UserDto userDto = getUserDto();
 
     // given
     when(userService.findByEmailContainingIgnoreCase(anyString()))
@@ -223,5 +221,15 @@ public class UserControllerTest {
     result.andExpect(jsonPath("$.[0].email", is("abc@gmail.com")));
     result.andExpect(jsonPath("$.[0].gender", is("Male")));
     result.andExpect(jsonPath("$.[0].designation", is("Developer")));
+  }
+
+  public UserDto getUserDto() {
+    UserDto userDto = new UserDto();
+    userDto.setFirstName("AAA");
+    userDto.setLastName("BBB");
+    userDto.setEmail("abc@gmail.com");
+    userDto.setDesignation("Developer");
+    userDto.setGender(Gender.Male);
+    return userDto;
   }
 }

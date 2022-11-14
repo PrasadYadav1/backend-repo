@@ -1,4 +1,4 @@
-package com.technoidentity.dto;
+package com.technoidentity.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

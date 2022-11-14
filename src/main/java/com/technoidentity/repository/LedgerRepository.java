@@ -1,13 +1,10 @@
 package com.technoidentity.repository;
 
-import com.technoidentity.entity.CashFlow;
+import com.technoidentity.entity.Ledger;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional(readOnly = false)
-public interface CashFlowRepository extends JpaRepository<CashFlow, String> {
-
-  CashFlow findByDate(String date);
-}
+public interface LedgerRepository extends JpaRepository<Ledger, Long> {}

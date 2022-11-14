@@ -1,52 +1,37 @@
 package com.technoidentity.entity;
 
-import com.technoidentity.enums.Category;
-import com.technoidentity.enums.TransactionType;
 import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "cash_flows")
+@Table(name = "cash_flow")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CashFlow extends SharedModel implements Serializable {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  @GenericGenerator(
+      name = "capital_id",
+      strategy = "com.technoidentity.generator.CapitalIdGenerator")
+  @GeneratedValue(generator = "capital_id")
+  @Column(name = "capital_id")
+  private String capitalId;
 
-  @Temporal(TemporalType.DATE)
   @Column(name = "date")
-  private Date date;
+  private String date;
 
-  @Column(name = "bank_id")
-  private Long bankId;
+  @Column(name = "week")
+  private int week;
 
-  @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "bank_id", nullable = false, insertable = false, updatable = false)
-  private Bank bank;
+  @Column(name = "year")
+  private int year;
 
-  @Column(name = "category")
-  @NotNull
-  private Category category;
-
-  @Column(name = "capital")
+  @Column(name = "capital_started")
   private double capital;
 
   @Column(name = "inflow")
@@ -58,7 +43,9 @@ public class CashFlow extends SharedModel implements Serializable {
   @Column(name = "balance")
   private double balance;
 
-  @Column(name = "transaction_type")
-  @NotNull
-  private TransactionType transactionType;
+  @Column(name = "funding")
+  private double funding;
+
+  @Column(name = "loan")
+  private double loan;
 }

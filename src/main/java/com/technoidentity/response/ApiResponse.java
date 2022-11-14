@@ -1,4 +1,4 @@
-package com.technoidentity.dto;
+package com.technoidentity.response;
 
 public class ApiResponse {
   private boolean success;
