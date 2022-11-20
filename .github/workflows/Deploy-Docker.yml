@@ -20,7 +20,7 @@ jobs:
         image: prasadkarthikeyan/backend-repo
         tags: latest
         registry: docker.io
-        dockerfile: backend-repo/Dockerfile
+        dockerfile: https://github.com/PrasadYadav1/backend-repo/Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}  
     - name: Install SSH Key
