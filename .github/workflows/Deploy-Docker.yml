@@ -41,13 +41,15 @@ jobs:
         known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
     - name: Adding Known Hosts
       run: ssh-keyscan -H 103.242.116.207 >> ~/.ssh/known_hosts 
-    - name: multiple command
+    - name: Deploy Prod Environment Images
       uses: appleboy/ssh-action@master
+      if: env.CURRENT_BRANCH == 'master'
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: ${{ secrets.PORT }}
+        passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
           docker pull docker.io/prasadkarthikeyan/backend-repo
           docker run -d -p 9000:9000 --name backend-repo prasadkarthikeyan/backend-repo
