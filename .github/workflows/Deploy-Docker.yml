@@ -17,7 +17,7 @@ jobs:
     - name: Build & push Docker image
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
-        image: docker.io/prasadkarthikeyan/backend-repo
+        image: prasadkarthikeyan/backend-repo
         tags: latest
         registry: docker.io
         dockerfile: /home/runner/work/_actions/appleboy/ssh-action/master/Dockerfile
