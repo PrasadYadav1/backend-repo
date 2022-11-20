@@ -43,7 +43,6 @@ jobs:
       run: ssh-keyscan -H 103.242.116.207 >> ~/.ssh/known_hosts 
     - name: Deploy Prod Environment Images
       uses: appleboy/ssh-action@master
-      if: env.CURRENT_BRANCH == 'master'
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
