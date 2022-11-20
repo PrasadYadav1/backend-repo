@@ -20,7 +20,7 @@ jobs:
         image: prasadkarthikeyan/backend-repo
         tags: latest
         registry: docker.io
-        dockerfile: /home/runner/work/_actions/appleboy/ssh-action/master/Dockerfile
+        dockerfile: backend-repo/Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}  
     - name: Install SSH Key
