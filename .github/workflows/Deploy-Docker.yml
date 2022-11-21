@@ -43,10 +43,12 @@ jobs:
       run: ssh-keyscan -H 103.242.116.207 >> ~/.ssh/known_hosts 
     - name: Execute SSH commmands on remote server
       uses: JimCronqvist/action-ssh@master
+      env:
+        NAME: "Root"
       with:
-        hosts: 'technoidentity@103.242.116.207'
+        hosts: 'user@domain.com user@domain2.com:2222'
         privateKey: ${{ secrets.PRIVATE_KEY }}
+        debug: false
         command: |
-            npx kill-port 9000
-            docker pull docker.io/prasadkarthikeyan/backend-repo
-            docker run -d -p 9000:9000 --name backend-repo prasadkarthikeyan/backend-repo
+          ls -lah
+          echo "I am $NAME"
