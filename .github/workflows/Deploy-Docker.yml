@@ -46,7 +46,7 @@ jobs:
       env:
         NAME: "Root"
       with:
-        hosts: 'user@domain.com user@domain2.com:2222'
+        hosts: 'technoidentity@103.242.116.207:22'
         privateKey: ${{ secrets.PRIVATE_KEY }}
         debug: false
         command: |
