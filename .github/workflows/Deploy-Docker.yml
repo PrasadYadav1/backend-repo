@@ -41,14 +41,13 @@ jobs:
         known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
     - name: Adding Known Hosts
       run: ssh-keyscan -H 103.242.116.207 >> ~/.ssh/known_hosts 
-    - name: Execute SSH commmands on remote server
-      uses: JimCronqvist/action-ssh@master
-      env:
-        NAME: "Root"
+    - name: multiple command
+      uses: appleboy/ssh-action@master
       with:
-        hosts: 'technoidentity@103.242.116.207:22'
-        privateKey: ${{ secrets.PRIVATE_KEY }}
-        debug: false
-        command: |
-          ls -lah
-          echo "I am $NAME"
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+            docker pull docker.io/prasadkarthikeyan/backend-repo
+            docker run -d -p 9000:9000 --name demo-app prasadkarthikeyan/backend-repo
